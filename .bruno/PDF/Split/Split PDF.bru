@@ -1,0 +1,55 @@
+meta {
+  name: Split PDF
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/forms/pdfengines/split
+  body: multipartForm
+  auth: none
+}
+
+headers {
+  Accept: application/pdf
+}
+
+body:multipart-form {
+  files[]: @file(./sample.pdf)
+  splitMode: intervals
+  splitSpan: 1
+  pdfFormat: 
+  pdfa: 
+  pdfua: false
+  metadata: 
+}
+
+docs {
+  # Split PDF
+
+  Split a PDF file into multiple PDFs using the Gotenberg PDF engines API.
+
+  ## Form Fields
+
+  | Field       | Description                                                                 |
+  |-------------|-----------------------------------------------------------------------------|
+  | files[]     | The PDF file(s) to split.                                                   |
+  | splitMode   | The mode to use for splitting: `intervals`, `pages`, or `r-intervals`.      |
+  | splitSpan   | The span to use for splitting (e.g., `1` splits every page individually).   |
+  | pdfFormat   | Convert the resulting PDFs to the given PDF format (e.g., `PDF/A-1b`).      |
+  | pdfa        | The PDF/A format to convert to (e.g., `PDF/A-1b`).                          |
+  | pdfua       | Enable PDF/UA (Universal Accessibility) compliance.                         |
+  | metadata    | JSON object with metadata to embed into the resulting PDFs.                 |
+
+  ## Split Modes
+
+  - `intervals`: Split the PDF every N pages defined by `splitSpan`.
+  - `pages`: Split the PDF at specific page numbers defined by `splitSpan` (comma-separated).
+  - `r-intervals`: Split the PDF every N pages from the end, defined by `splitSpan`.
+
+  ## Example
+
+  To split a 10-page PDF into individual pages, set `splitMode` to `intervals` and `splitSpan` to `1`.
+
+  The response will be a ZIP archive containing the split PDF files when more than one file is produced.
+}
