@@ -1,0 +1,105 @@
+meta {
+  name: Spreadsheet to PDF
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/forms/libreoffice/convert
+  body: multipartForm
+  auth: none
+}
+
+headers {
+  Accept: application/pdf
+}
+
+body:multipart-form [
+  {
+    name: files,
+    value: @file(./sample.xlsx),
+    type: file
+  },
+  {
+    name: landscape,
+    value: false,
+    type: text
+  },
+  {
+    name: nativePageRanges,
+    value: ,
+    type: text
+  },
+  {
+    name: exportFormFields,
+    value: true,
+    type: text
+  },
+  {
+    name: allowDuplicateFieldNames,
+    value: false,
+    type: text
+  },
+  {
+    name: exportBookmarksToPdfDestination,
+    value: false,
+    type: text
+  },
+  {
+    name: exportPlaceholders,
+    value: false,
+    type: text
+  },
+  {
+    name: exportNotes,
+    value: false,
+    type: text
+  },
+  {
+    name: exportNotesPages,
+    value: false,
+    type: text
+  },
+  {
+    name: exportOnlyNotesPages,
+    value: false,
+    type: text
+  },
+  {
+    name: exportNotesInMargin,
+    value: false,
+    type: text
+  },
+  {
+    name: convertOooTargetToPdfTarget,
+    value: false,
+    type: text
+  },
+  {
+    name: pdfa,
+    value: ,
+    type: text
+  },
+  {
+    name: pdfua,
+    value: false,
+    type: text
+  },
+  {
+    name: merge,
+    value: false,
+    type: text
+  }
+]
+
+docs {
+  Convert a spreadsheet (e.g., .xlsx, .ods, .csv) to PDF using LibreOffice.
+
+  Supported formats: xlsx, xls, ods, csv, tsv
+
+  Set `merge` to true when uploading multiple spreadsheet files to merge them
+  into a single PDF output.
+
+  Use `nativePageRanges` to specify which sheets/pages to include,
+  e.g. "1-3" for the first three pages.
+}
