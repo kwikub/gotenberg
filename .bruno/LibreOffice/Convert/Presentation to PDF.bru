@@ -1,0 +1,70 @@
+meta {
+  name: Presentation to PDF
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/forms/libreoffice/convert/office
+  body: multipartForm
+  auth: none
+}
+
+params:query {
+
+}
+
+headers {
+
+}
+
+body:multipart-form {
+  files[]: @file(./sample.pptx)
+  landscape: false
+  nativePageRanges: 1-5
+  exportFormFields: true
+  allowDuplicateFieldNames: false
+  exportBookmarks: true
+  exportBookmarksToPdfDestination: false
+  exportPlaceholders: false
+  exportNotes: false
+  exportNotesPages: false
+  exportOnlyNotesPages: false
+  exportNotesInMargin: false
+  convertOooTargetToPdfTarget: false
+  exportLinksRelativeFsys: false
+  exportHiddenSlides: false
+  skipEmptyPages: false
+  addOriginalDocumentAsStream: false
+  singlePageSheets: false
+  losslessImageCompression: false
+  quality: 90
+  reduceImageResolution: false
+  maxImageResolution: 300
+  pdfa: PDF/A-1b
+  pdfua: false
+  merge: false
+  metadata: {"Author": "John Doe", "Subject": "Sample Presentation"}
+  waitDelay: 
+  waitForExpression: 
+}
+
+assert {
+  res.status: eq 200
+  res.headers[content-type]: eq application/pdf
+}
+
+docs {
+  Convert a PowerPoint or Impress presentation file to PDF using LibreOffice.
+
+  Supported formats: .ppt, .pptx, .odp, .key
+
+  Common options:
+  - landscape: Render pages in landscape orientation
+  - nativePageRanges: Page ranges to include (e.g. "1-5", "1,3,5")
+  - exportNotes: Include presenter notes in the PDF
+  - exportHiddenSlides: Include hidden slides in the PDF
+  - pdfa: PDF/A compliance level (PDF/A-1b, PDF/A-2b, PDF/A-3b)
+  - pdfua: Enable PDF/UA (Universal Accessibility)
+  - merge: Merge all input files into a single PDF
+}
