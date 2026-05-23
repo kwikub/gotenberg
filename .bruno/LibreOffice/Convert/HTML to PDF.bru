@@ -1,0 +1,57 @@
+meta {
+  name: HTML to PDF (LibreOffice)
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/libreoffice/convert/html
+  body: multipartForm
+  auth: none
+}
+
+headers {
+  Accept: application/pdf
+}
+
+body:multipart-form {
+  files[]: @file(../../../test-assets/index.html)
+  landscape: false
+  nativePageRanges: 1-2
+  exportFormFields: true
+  singlePageSheets: false
+  allowDuplicateFieldNames: false
+  exportBookmarks: true
+  exportBookmarksToPdfDestination: false
+  exportPlaceholders: false
+  exportNotes: false
+  exportNotesPages: false
+  exportOnlyNotesPages: false
+  exportNotesInMargin: false
+  convertOooTargetToPdfTarget: false
+  exportLinksRelativeFsys: false
+  exportHiddenSlides: false
+  skipEmptyPages: false
+  addOriginalDocumentAsStream: false
+  pdfVersion: 1.7
+  pdfa: false
+}
+
+docs {
+  ## HTML to PDF via LibreOffice
+
+  Converts an HTML file to PDF using LibreOffice.
+
+  ### Required Fields
+  - `files[]`: The HTML file to convert (multipart upload)
+
+  ### Optional Fields
+  - `landscape`: Set to `true` for landscape orientation (default: `false`)
+  - `nativePageRanges`: Page ranges to print, e.g., `1-5` (default: all pages)
+  - `exportFormFields`: Export form fields as PDF form fields (default: `true`)
+  - `pdfa`: Export as PDF/A compliant document (default: `false`)
+  - `pdfVersion`: PDF version to use, e.g., `1.7` (default: `1.7`)
+
+  ### Response
+  Returns the converted PDF file as a binary stream with `Content-Type: application/pdf`.
+}
