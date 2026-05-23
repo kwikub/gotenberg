@@ -1,0 +1,48 @@
+meta {
+  name: Merge PDFs
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/forms/libreoffice/merge
+  body: multipartForm
+  auth: none
+}
+
+headers {
+  Accept: application/pdf
+}
+
+body:multipart-form {
+  files[]: @file(../../../test-assets/sample1.pdf)
+  files[]: @file(../../../test-assets/sample2.pdf)
+  pdfa: PDF/A-1b
+  pdfua: false
+  metadata: {"Author": "Gotenberg", "Subject": "Merged Document"}
+}
+
+docs {
+  # Merge PDFs
+
+  Merges multiple PDF files into a single PDF document using LibreOffice.
+
+  ## Form Fields
+
+  | Field      | Type    | Required | Description                                          |
+  |------------|---------|----------|------------------------------------------------------|
+  | files[]    | file    | Yes      | Two or more PDF files to merge (order matters)       |
+  | pdfa       | string  | No       | Convert to PDF/A format (e.g., PDF/A-1b, PDF/A-2b)  |
+  | pdfua      | boolean | No       | Enable PDF/UA (Universal Accessibility) compliance   |
+  | metadata   | string  | No       | JSON object with PDF metadata key-value pairs        |
+
+  ## Response
+
+  Returns the merged PDF file as `application/pdf`.
+
+  ## Notes
+
+  - Files are merged in the order they are provided.
+  - At least two PDF files must be supplied.
+  - The `pdfa` field accepts values like `PDF/A-1a`, `PDF/A-1b`, `PDF/A-2a`, `PDF/A-2b`, `PDF/A-3b`.
+}
