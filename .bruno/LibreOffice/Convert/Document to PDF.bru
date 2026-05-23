@@ -1,0 +1,68 @@
+meta {
+  name: Document to PDF
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/forms/libreoffice/convert/pdf
+  body: multipartForm
+  auth: none
+}
+
+params:query {
+
+}
+
+headers {
+
+}
+
+body:multipart-form {
+  files[]: @file(./sample.docx)
+  landscape: false
+  nativePageRanges: 
+  exportFormFields: true
+  allowDuplicateFieldNames: false
+  exportBookmarksToPdfDestination: false
+  exportPlaceholders: false
+  exportNotes: false
+  exportNotesPages: false
+  exportOnlyNotesPages: false
+  exportNotesInMargin: false
+  convertOooTargetToPdfTarget: false
+  exportLinksRelativeFsys: false
+  exportHiddenSlides: false
+  skipEmptyPages: false
+  addOriginalDocumentAsStream: false
+  losslessImageCompression: false
+  quality: 90
+  reduceImageResolution: false
+  maxImageResolution: 300
+  pdfa: 
+  pdfua: false
+  merge: false
+  metadata: 
+  waitDelay: 
+  waitTimeout: 
+}
+
+docs {
+  ## Document to PDF
+
+  Convert a document (docx, xlsx, pptx, odt, etc.) to PDF using LibreOffice.
+
+  ### Required
+  - `files[]`: One or more document files to convert.
+
+  ### Optional
+  - `landscape`: Set to `true` for landscape orientation.
+  - `nativePageRanges`: Page ranges to print, e.g. `1-5`. Default: all pages.
+  - `exportFormFields`: Export form fields as widgets. Default: `true`.
+  - `pdfa`: PDF/A format, e.g. `PDF/A-1b`.
+  - `pdfua`: Enable PDF/UA compliance. Default: `false`.
+  - `merge`: Merge all converted documents into a single PDF. Default: `false`.
+  - `metadata`: JSON object with PDF metadata (e.g. `{"Author": "John"}`).
+  - `waitDelay`: Duration to wait before processing (e.g. `5s`).
+  - `waitTimeout`: Timeout for the conversion (e.g. `30s`).
+}
