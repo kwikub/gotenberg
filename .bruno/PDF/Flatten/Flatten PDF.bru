@@ -1,0 +1,49 @@
+meta {
+  name: Flatten PDF
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/forms/pdfengines/flatten
+  body: multipartForm
+  auth: none
+}
+
+params:query {
+
+}
+
+headers {
+
+}
+
+body:multipart-form {
+  files[]: @file(./assets/sample.pdf)
+}
+
+docs {
+  # Flatten PDF
+
+  Flattens a PDF document, making all form fields and annotations non-editable.
+
+  ## Endpoint
+
+  `POST /forms/pdfengines/flatten`
+
+  ## Form Fields
+
+  | Field   | Type | Required | Description                        |
+  |---------|------|----------|------------------------------------|
+  | files[] | File | Yes      | One or more PDF files to flatten   |
+
+  ## Response
+
+  Returns the flattened PDF file.
+
+  ## Notes
+
+  - Flattening merges all interactive elements (form fields, annotations) into the page content
+  - The resulting PDF will no longer have editable fields
+  - Useful for finalizing documents before distribution
+}
