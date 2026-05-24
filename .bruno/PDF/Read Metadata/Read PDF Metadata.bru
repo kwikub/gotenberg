@@ -1,0 +1,57 @@
+meta {
+  name: Read PDF Metadata
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/forms/pdfengines/metadata/read
+  body: multipart
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}
+
+body:multipart {
+  files[]: @file(../../../test-assets/sample.pdf)
+}
+
+docs {
+  # Read PDF Metadata
+
+  Reads metadata from one or more PDF files.
+
+  ## Endpoint
+
+  `POST /forms/pdfengines/metadata/read`
+
+  ## Form Fields
+
+  | Field   | Type   | Required | Description                        |
+  |---------|--------|----------|------------------------------------||
+  | files[] | File[] | Yes      | One or more PDF files to read from |
+
+  ## Response
+
+  Returns a JSON object containing metadata key-value pairs extracted from
+  the provided PDF files.
+
+  ## Example Response
+
+  ```json
+  {
+    "sample.pdf": {
+      "Title": "Sample Document",
+      "Author": "John Doe",
+      "Subject": "",
+      "Keywords": "",
+      "Creator": "Microsoft Word",
+      "Producer": "Adobe PDF Library",
+      "CreationDate": "D:20230101120000Z",
+      "ModDate": "D:20230601150000Z"
+    }
+  }
+  ```
+}
