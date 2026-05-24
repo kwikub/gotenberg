@@ -1,0 +1,43 @@
+meta {
+  name: URL to PDF
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/forms/pdfengines/convert
+  body: multipartForm
+  auth: none
+}
+
+headers {
+  Accept: application/pdf
+}
+
+body:multipart-form {
+  pdfFormat: PDF/A-2b
+}
+
+docs {
+  # URL to PDF (PDF Engines)
+
+  Convert a PDF to a specific PDF format using the PDF engines module.
+
+  ## Form Fields
+
+  | Field       | Type   | Required | Description                                                                 |
+  |-------------|--------|----------|-----------------------------------------------------------------------------|
+  | files       | File   | Yes      | One or more PDF files to convert                                            |
+  | pdfFormat   | String | No       | The PDF format to convert to (e.g., PDF/A-1b, PDF/A-2b, PDF/A-3b, PDF/UA-1) |
+
+  ## Notes
+
+  - At least one PDF file must be provided
+  - The `pdfFormat` field specifies the target PDF format
+  - Supported formats depend on the configured PDF engine (e.g., LibreOffice, pdfcpu, qpdf, unoconv)
+  - Returns the converted PDF file
+
+  ## Example
+
+  Upload a PDF file and convert it to PDF/A-2b format.
+}
