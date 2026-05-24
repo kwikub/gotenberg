@@ -1,0 +1,46 @@
+meta {
+  name: Write PDF Metadata
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/forms/pdfengines/metadata/write
+  body: multipartForm
+  auth: none
+}
+
+headers {
+  Accept: application/pdf
+}
+
+body:multipart-form {
+  files[]: @file(../../../test-assets/sample.pdf)
+  metadata: {"Author":"John Doe","Title":"Sample Document","Subject":"Testing metadata write","Keywords":"test, pdf, metadata","Creator":"Gotenberg","Producer":"Gotenberg"}
+}
+
+docs {
+  ## Write PDF Metadata
+
+  Writes metadata to one or more PDF files using the configured PDF engine.
+
+  ### Form Fields
+
+  | Field | Type | Description |
+  |-------|------|-------------|
+  | `files[]` | File | One or more PDF files to write metadata to |
+  | `metadata` | String (JSON) | A JSON object containing the metadata key-value pairs to write |
+
+  ### Common Metadata Keys
+
+  - `Author` — The author of the document
+  - `Title` — The title of the document
+  - `Subject` — The subject of the document
+  - `Keywords` — Keywords associated with the document
+  - `Creator` — The application that created the document
+  - `Producer` — The application that produced the PDF
+
+  ### Response
+
+  Returns the modified PDF file with the specified metadata applied.
+}
