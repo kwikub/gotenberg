@@ -1,0 +1,42 @@
+meta {
+  name: HTML to PDF (PDF Engine)
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/forms/pdfengines/convert
+  body: multipartForm
+  auth: none
+}
+
+headers {
+  Accept: application/pdf
+}
+
+body:multipart-form {
+  files[]: @file(../../../test-assets/sample.pdf)
+  pdfa: PDF/A-1b
+  pdfua: true
+}
+
+docs {
+  # PDF Engine - Convert to PDF/A or PDF/UA
+
+  Converts one or more PDF files to the specified PDF/A format and/or PDF/UA
+  using the Gotenberg PDF engines.
+
+  ## Parameters
+
+  | Field   | Type    | Description                                      |
+  |---------|---------|--------------------------------------------------|
+  | files[] | file    | One or more PDF files to convert                 |
+  | pdfa    | string  | PDF/A format: PDF/A-1b, PDF/A-2b, PDF/A-3b       |
+  | pdfua   | boolean | Enable PDF/UA (Universal Accessibility) standard |
+
+  ## Notes
+
+  - At least one PDF file must be provided
+  - `pdfa` and `pdfua` are optional but at least one should be set
+  - The response is a merged/converted PDF file
+}
