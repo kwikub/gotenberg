@@ -21,23 +21,23 @@ body:multipart-form {
 docs {
   # Read PDF Metadata
 
-  Reads metadata from one or more PDF files using the configured PDF engine.
+  Reads metadata from one or more PDF files.
 
   ## Request
 
-  - **Method:** POST
-  - **Endpoint:** `/forms/pdfengines/metadata/read`
-  - **Content-Type:** `multipart/form-data`
+  - **Method**: POST
+  - **Endpoint**: `/forms/pdfengines/metadata/read`
+  - **Content-Type**: `multipart/form-data`
 
-  ### Form Fields
+  ## Parameters
 
-  | Field   | Type   | Required | Description                          |
-  |---------|--------|----------|--------------------------------------|
-  | `files` | File[] | Yes      | One or more PDF files to read metadata from |
+  | Field   | Type | Required | Description                        |
+  |---------|------|----------|------------------------------------|
+  | `files` | File | Yes      | One or more PDF files to read from |
 
   ## Response
 
-  Returns a JSON object mapping each filename to its extracted metadata.
+  Returns a JSON object containing metadata keyed by filename.
 
   ```json
   {
@@ -46,16 +46,11 @@ docs {
       "Author": "John Doe",
       "Subject": "",
       "Keywords": "",
-      "Creator": "Microsoft Word",
-      "Producer": "Adobe PDF Library",
+      "Creator": "Writer",
+      "Producer": "LibreOffice",
       "CreationDate": "D:20230101120000Z",
       "ModDate": "D:20230101120000Z"
     }
   }
   ```
-
-  ## Notes
-
-  - Supported PDF engines: `pdfcpu`, `pdftk`, `qpdf`, `exiftool`
-  - The default engine can be configured via the `GOTENBERG_PDF_ENGINES_ENGINES` environment variable.
 }
