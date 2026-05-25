@@ -15,32 +15,37 @@ headers {
 }
 
 body:multipart-form {
-  files[]: @file(../../../test-assets/sample.pdf)
-  metadata: {"Author":"John Doe","Title":"Sample Document","Subject":"Testing metadata write","Keywords":"test, pdf, metadata","Creator":"Gotenberg","Producer":"Gotenberg"}
+  metadata: {"Author": "John Doe", "Title": "My Document", "Subject": "Testing metadata", "Keywords": "gotenberg, pdf, metadata", "Creator": "Gotenberg", "Producer": "Gotenberg"}
+}
+
+body:file {
+  files[]: @file(../../../testdata/sample.pdf)
 }
 
 docs {
   ## Write PDF Metadata
 
-  Writes metadata to one or more PDF files using the configured PDF engine.
+  Writes metadata to one or more PDF files.
 
   ### Form Fields
 
   | Field | Type | Description |
   |-------|------|-------------|
-  | `files[]` | File | One or more PDF files to write metadata to |
-  | `metadata` | String (JSON) | A JSON object containing the metadata key-value pairs to write |
+  | `files` | File(s) | The PDF file(s) to write metadata to |
+  | `metadata` | JSON string | A JSON object containing the metadata key-value pairs to write |
 
-  ### Common Metadata Keys
+  ### Supported Metadata Keys
 
-  - `Author` — The author of the document
-  - `Title` — The title of the document
-  - `Subject` — The subject of the document
-  - `Keywords` — Keywords associated with the document
-  - `Creator` — The application that created the document
-  - `Producer` — The application that produced the PDF
+  - `Author`
+  - `Title`
+  - `Subject`
+  - `Keywords`
+  - `Creator`
+  - `Producer`
+  - `CreationDate`
+  - `ModDate`
 
   ### Response
 
-  Returns the modified PDF file with the specified metadata applied.
+  Returns the PDF file(s) with the metadata written.
 }
