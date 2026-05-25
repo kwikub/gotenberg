@@ -1,0 +1,51 @@
+meta {
+  name: Document to PDF
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/forms/pdfengines/convert
+  body: multipartForm
+  auth: none
+}
+
+params:query {
+
+}
+
+headers {
+  Accept: application/pdf
+}
+
+body:multipart-form {
+  files[]: @file(../../../test-assets/document.docx)
+  pdfFormat: PDF/A-1b
+}
+
+docs {
+  # Convert Document to PDF
+
+  Converts an office document (e.g., `.docx`, `.odt`, `.pptx`, `.xlsx`) to PDF
+  using the configured PDF engine.
+
+  ## Required Fields
+
+  - `files[]` — One or more document files to convert.
+
+  ## Optional Fields
+
+  - `pdfFormat` — The PDF format to use (e.g., `PDF/A-1b`, `PDF/A-2b`, `PDF/A-3b`).
+  - `pdfUniversalAccess` — Set to `true` to enable PDF/UA compliance.
+  - `merge` — Set to `true` to merge all converted files into a single PDF.
+
+  ## Response
+
+  Returns the converted PDF file, or a ZIP archive if multiple files were
+  submitted and `merge` is not enabled.
+
+  ## Notes
+
+  - Supported input formats depend on the PDF engine configured in Gotenberg.
+  - When using `pdftk` or `pdfcpu`, only PDF inputs are accepted for format conversion.
+}
