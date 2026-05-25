@@ -10,10 +10,8 @@ post {
   auth: none
 }
 
-params:query {
-}
-
 headers {
+  Accept: application/json
 }
 
 body:multipart-form {
@@ -23,34 +21,30 @@ body:multipart-form {
 docs {
   # Read PDF Metadata
 
-  Reads metadata from one or more PDF files.
-
-  ## Endpoint
-
-  `POST /forms/pdfengines/metadata/read`
+  Reads metadata from one or more PDF files using the configured PDF engine.
 
   ## Form Fields
 
-  | Field   | Type | Description                        |
-  |---------|------|------------------------------------|
-  | files[] | File | One or more PDF files to read from |
+  | Field   | Type  | Required | Description                        |
+  |---------|-------|----------|------------------------------------|
+  | files[] | file  | yes      | One or more PDF files to read from |
 
   ## Response
 
-  Returns a JSON object containing the metadata for each provided PDF file.
+  Returns a JSON object containing metadata key-value pairs extracted from the provided PDF(s).
+
+  ## Example Response
 
   ```json
   {
-    "sample.pdf": {
-      "Author": "John Doe",
-      "Title": "Sample Document",
-      "Subject": "Testing",
-      "Keywords": "pdf, test",
-      "Creator": "Writer",
-      "Producer": "LibreOffice",
-      "CreationDate": "D:20230101120000Z",
-      "ModDate": "D:20230101120000Z"
-    }
+    "Author": "John Doe",
+    "Title": "Sample Document",
+    "Subject": "",
+    "Keywords": "",
+    "Creator": "Writer",
+    "Producer": "LibreOffice 7.0",
+    "CreationDate": "D:20230101120000Z",
+    "ModDate": "D:20230101120000Z"
   }
   ```
 }
