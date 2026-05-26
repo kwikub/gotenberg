@@ -1,0 +1,55 @@
+meta {
+  name: PDF Page Screenshot
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/forms/pdfengines/screenshot
+  body: multipartForm
+  auth: none
+}
+
+params:query {
+
+}
+
+headers {
+
+}
+
+body:multipart-form {
+  files[]: @file(./assets/sample.pdf)
+  format: png
+  quality: 100
+  omitBackground: false
+  width: 800
+  height: 600
+  clip: false
+  scaleFactor: 1.0
+  page: 2
+}
+
+docs {
+  ## PDF Page Screenshot
+
+  Captures a screenshot of a specific page from a PDF file.
+
+  ### Form Fields
+
+  | Field           | Type    | Required | Default | Description                                                  |
+  |-----------------|---------|----------|---------|--------------------------------------------------------------|
+  | files[]         | File    | Yes      | -       | The PDF file to capture a screenshot from                    |
+  | format          | string  | No       | png     | The image format: `png`, `jpeg`, or `webp`                   |
+  | quality         | integer | No       | 100     | The image quality (only for `jpeg` and `webp`): `0` to `100` |
+  | omitBackground  | boolean | No       | false   | Hide the default white background                            |
+  | width           | integer | No       | 800     | The device screen width in pixels                            |
+  | height          | integer | No       | 600     | The device screen height in pixels                           |
+  | clip            | boolean | No       | false   | Clip the screenshot to the device screen size                |
+  | scaleFactor     | float   | No       | 1.0     | The device scale factor                                      |
+  | page            | integer | No       | 1       | The page number to capture (1-indexed)                       |
+
+  ### Response
+
+  Returns the screenshot as an image file with the appropriate content type.
+}
