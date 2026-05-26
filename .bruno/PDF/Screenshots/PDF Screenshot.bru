@@ -1,0 +1,56 @@
+meta {
+  name: PDF Screenshot
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/forms/pdfengines/screenshot
+  body: multipartForm
+  auth: none
+}
+
+params:query {
+
+}
+
+headers {
+
+}
+
+body:multipart-form {
+  files[]: @file(./assets/sample.pdf)
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:3000
+}
+
+assert {
+  res.status: eq 200
+  res.headers[content-type]: contains image/png
+}
+
+docs {
+  # PDF Screenshot
+
+  Takes a screenshot of the first page of a PDF document.
+
+  ## Form Fields
+
+  | Field   | Type | Required | Description                        |
+  |---------|------|----------|---------------------------------|
+  | `files` | File | Yes      | The PDF file(s) to screenshot   |
+
+  ## Response
+
+  Returns a PNG image of the first page of the provided PDF.
+
+  ## Example
+
+  ```bash
+  curl -X POST http://localhost:3000/forms/pdfengines/screenshot \
+    -F files=@sample.pdf \
+    -o screenshot.png
+  ```
+}
