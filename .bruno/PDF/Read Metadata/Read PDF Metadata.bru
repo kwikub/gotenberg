@@ -15,36 +15,36 @@ headers {
 }
 
 body:multipart-form {
-  files[]: @file(../../../test-assets/sample.pdf)
+  files[]: @file(../../../assets/sample.pdf)
 }
 
 docs {
   # Read PDF Metadata
 
-  Reads metadata from one or more PDF files using the configured PDF engine.
+  Reads the metadata from one or more PDF files.
 
   ## Form Fields
 
-  | Field   | Type  | Required | Description                        |
-  |---------|-------|----------|------------------------------------|
-  | files[] | file  | yes      | One or more PDF files to read from |
+  - `files[]` (required): The PDF file(s) to read metadata from.
 
   ## Response
 
-  Returns a JSON object containing metadata key-value pairs extracted from the provided PDF(s).
+  Returns a JSON object containing the metadata for each PDF file.
 
   ## Example Response
 
   ```json
   {
-    "Author": "John Doe",
-    "Title": "Sample Document",
-    "Subject": "",
-    "Keywords": "",
-    "Creator": "Writer",
-    "Producer": "LibreOffice 7.0",
-    "CreationDate": "D:20230101120000Z",
-    "ModDate": "D:20230101120000Z"
+    "sample.pdf": {
+      "Author": "John Doe",
+      "Title": "Sample Document",
+      "Subject": "Testing",
+      "Keywords": "pdf, sample, test",
+      "Creator": "Writer",
+      "Producer": "LibreOffice",
+      "CreationDate": "2024-01-01T00:00:00Z",
+      "ModDate": "2024-01-02T00:00:00Z"
+    }
   }
   ```
 }
